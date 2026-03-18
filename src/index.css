@@ -1,0 +1,36 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+.btn {
+  background: #2563eb;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+textarea, input, select {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+.card {
+  background: #1e293b;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+}
