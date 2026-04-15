@@ -47,6 +47,9 @@ const Navbar = () => {
         <Link to="/dashboard" className="hover:underline">
           Dashboard
         </Link>
+        <Link to="/about" className="hover:underline">
+          About
+        </Link>
         <div className="w-8 h-8 rounded-full bg-gray-300 text-black flex items-center justify-center">
           D
         </div>
@@ -89,8 +92,9 @@ const Navbar = () => {
     </Link>
     <Link to="/dashboard" onClick={() => setMenuOpen(false)}>
       Dashboard
-    </Link>
-  </div>
+    </Link>    <Link to="/about" onClick={() => setMenuOpen(false)}>
+      About
+    </Link>  </div>
 </div>
     </nav>
   );

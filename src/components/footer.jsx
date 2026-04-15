@@ -23,6 +23,7 @@ function footer() {
             <li><Link to="/" className="hover:text-white">Home</Link></li>
             <li><Link to="/report" className="hover:text-white">Report</Link></li>
             <li><Link to="/dashboard" className="hover:text-white">Dashboard</Link></li>
+            <li><Link to="/about" className="hover:text-white">About</Link></li>
           </ul>
         </div>
         {/* RIGHT - EXTRA INFO */}
