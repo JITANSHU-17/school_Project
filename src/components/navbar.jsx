@@ -5,54 +5,90 @@ const Navbar = () => {
 
   const dropdownRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const sidebarRef = useRef(null);
+  const searchRef = useRef(null);
 
   useEffect(() => {
-  const handleClickOutside = (e) => {
-    if (
-      menuOpen &&
-      sidebarRef.current &&
-      !sidebarRef.current.contains(e.target)
-    ) {
-      setMenuOpen(false);
-    }
-  };
+    const handleClickOutside = (e) => {
+      if (
+        menuOpen &&
+        sidebarRef.current &&
+        !sidebarRef.current.contains(e.target)
+      ) {
+        setMenuOpen(false);
+      }
+      if (
+        searchOpen &&
+        searchRef.current &&
+        !searchRef.current.contains(e.target)
+      ) {
+        setSearchOpen(false);
+      }
+    };
 
-  document.addEventListener("mousedown", handleClickOutside);
-  return () => document.removeEventListener("mousedown", handleClickOutside);
-}, [menuOpen]);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [menuOpen, searchOpen]);
   
   return (
     <nav className="bg-red-500 text-white px-6 py-4 flex items-center justify-between">
       {/* LOGO */}
       <h1 className="text-2xl font-bold">CrimeTrackr</h1>
 
-      {/* SEARCH */}
-      <div className="flex flex-1 justify-center px-4">
-        <input
-          type="text"
-          placeholder="Search Crime Files..."
-          className="w-full max-w-md px-4 py-2 rounded-lg text-black bg-amber-50"
-        />
-      </div>
+      {/* DESKTOP NAV LINKS */}
+      <div className="hidden md:flex flex-1 items-center justify-end gap-6">
+        <div className="flex items-center gap-3">
+         
 
-      {/* DESKTOP MENU */}
-      <div className="hidden md:flex items-center gap-6">
+          <div ref={searchRef} className="flex items-center gap-2 transition-all duration-300">
+            <div className={`overflow-hidden transition-all duration-300 ${searchOpen ? 'max-w-[18rem]' : 'max-w-0'}`}>
+              <input
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                type="text"
+                placeholder="Search Crime Files..."
+                className="h-10 w-full rounded-l-lg border border-gray-300 bg-white px-3 text-black outline-none transition-all duration-300"
+              />
+            </div>
+            <button
+              type="button"
+              onClick={() => setSearchOpen((prev) => !prev)}
+              className="rounded-lg bg-amber-50 px-4 py-2 text-black font-medium hover:bg-amber-100 transition"
+            >
+              🔎 Search
+            </button>
+            {searchOpen && (
+              <button
+                type="button"
+                onClick={() => setSearchOpen(false)}
+                className="rounded-lg bg-gray-200 px-3 py-2 text-black hover:bg-gray-300 transition"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+        </div>
         <Link to="/" className="hover:underline">
           Home
         </Link>
+         <Link to="/about" className="hover:underline">
+          About
+        </Link>
+
+        
         <Link to="/report" className="hover:underline">
           FIR
         </Link>
+       
         <Link to="/dashboard" className="hover:underline">
           Dashboard
         </Link>
-        <Link to="/about" className="hover:underline">
-          About
-        </Link>
-        <div className="w-8 h-8 rounded-full bg-gray-300 text-black flex items-center justify-center">
-          D
-        </div>
+        
+         <div className="w-8 h-8 rounded-full bg-gray-300 text-black flex items-center justify-center">
+            D
+          </div>
       </div>
 
       {/* MOBILE MENU BUTTON */}
