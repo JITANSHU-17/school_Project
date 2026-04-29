@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 
-function footer() {
+function Footer() {
   return (
     <footer className="bg-[#020617] text-gray-300 py-8 mt-10">
       <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-6">
@@ -23,6 +23,7 @@ function footer() {
             <li><Link to="/" className="hover:text-white">Home</Link></li>
             <li><Link to="/report" className="hover:text-white">Report</Link></li>
             <li><Link to="/dashboard" className="hover:text-white">Dashboard</Link></li>
+            <li><Link to="/about" className="hover:text-white">About</Link></li>
           </ul>
         </div>
         {/* RIGHT - EXTRA INFO */}
@@ -43,4 +44,4 @@ function footer() {
   );
 }
 
-export default footer
+export default Footer
