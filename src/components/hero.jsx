@@ -1,11 +1,7 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-export default function Hero({
-  isLoggedIn,
-  setShowRegister,
-  setRedirectAfterLogin,
-}) {
+export default function Hero({ isLoggedIn, setShowAuth, setRedirectAfterLogin }){
   const navigate = useNavigate();
   return (
     <div className="relative h-screen w-full overflow-hidden">
@@ -38,7 +34,7 @@ export default function Hero({
           onClick={() => {
             if (!isLoggedIn) {
               setRedirectAfterLogin("/report"); // after register → go report page
-              setShowRegister(true);
+              setShowAuth(true);
             } else {
               navigate("/report");
             }

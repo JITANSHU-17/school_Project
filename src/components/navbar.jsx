@@ -4,7 +4,7 @@ import logo from "../assets/logo.png";
 
 const Navbar = ({
   isLoggedIn,
-  setShowRegister,
+  setShowAuth,
   setRedirectAfterLogin,
   searchQuery,
   setSearchQuery,
@@ -101,7 +101,7 @@ const Navbar = ({
           <button
             onClick={() => {
               setRedirectAfterLogin("/");
-              setShowRegister(true);
+              setShowAuth(true)
             }}
             className="bg-white text-black px-4 py-2 rounded-lg"
           >
@@ -158,7 +158,7 @@ const Navbar = ({
             <button
               onClick={() => {
                 setRedirectAfterLogin("/");
-                setShowRegister(true);
+                setShowAuth(true);
                 setMenuOpen(false);
               }}
               className="bg-white text-black px-4 py-2 rounded-lg"

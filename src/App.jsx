@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Report from "./pages/Report";
 import Dashboard from "./pages/Dashboard";
@@ -6,8 +6,8 @@ import About from "./pages/About";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
 import { useState } from "react";
-import RegisterModal from "./components/RegisterModal";
-import { useNavigate } from "react-router-dom";
+import AuthModal from "./components/AuthModal";
+import OtpModal from "./components/OtpModal";
 
 export default function AppWrapper() {
   return (
@@ -19,31 +19,40 @@ export default function AppWrapper() {
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
   const [redirectAfterLogin, setRedirectAfterLogin] = useState("/");
   const [searchQuery, setSearchQuery] = useState("");
+
+  // 🔥 AUTH MODAL STATE
+  const [showAuth, setShowAuth] = useState(false);
+
+  // 🔥 OTP FLOW STATE
+  const [showOtp, setShowOtp] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
+
   const navigate = useNavigate();
 
   return (
     <>
       <Navbar
         isLoggedIn={isLoggedIn}
-        setShowRegister={setShowRegister}
         setRedirectAfterLogin={setRedirectAfterLogin}
+        setShowAuth={setShowAuth}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
+
       <Routes>
         <Route
           path="/"
           element={
             <Home
               isLoggedIn={isLoggedIn}
-              setShowRegister={setShowRegister}
+              setShowAuth={setShowAuth}
               setRedirectAfterLogin={setRedirectAfterLogin}
             />
           }
         />
+
         <Route
           path="/report"
           element={
@@ -52,13 +61,13 @@ function App() {
             ) : (
               <Home
                 isLoggedIn={isLoggedIn}
-                setShowRegister={setShowRegister}
+                setShowAuth={setShowAuth}
                 setRedirectAfterLogin={setRedirectAfterLogin}
               />
             )
           }
         />
-        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+
         <Route
           path="/dashboard"
           element={
@@ -67,12 +76,13 @@ function App() {
             ) : (
               <Home
                 isLoggedIn={isLoggedIn}
-                setShowRegister={setShowRegister}
+                setShowAuth={setShowAuth}
                 setRedirectAfterLogin={setRedirectAfterLogin}
               />
             )
           }
         />
+
         <Route
           path="/about"
           element={
@@ -81,23 +91,44 @@ function App() {
             ) : (
               <Home
                 isLoggedIn={isLoggedIn}
-                setShowRegister={setShowRegister}
+                setShowAuth={setShowAuth}
                 setRedirectAfterLogin={setRedirectAfterLogin}
               />
             )
           }
         />
       </Routes>
-      {showRegister && (
-        <RegisterModal
-          onClose={() => setShowRegister(false)}
-          onLogin={() => {
+
+      {/* 🔐 AUTH MODAL */}
+      {showAuth && (
+        <AuthModal
+          onClose={() => setShowAuth(false)}
+          onLoginSuccess={() => {
             setIsLoggedIn(true);
-            setShowRegister(false);
-            navigate(redirectAfterLogin); // ✅ FIX
+            setShowAuth(false);
+            navigate(redirectAfterLogin);
+          }}
+          onSignupSuccess={(email) => {
+            setShowAuth(false);
+            setUserEmail(email);
+            setShowOtp(true); // 👉 OTP OPEN
           }}
         />
       )}
+
+      {/* 🔑 OTP MODAL */}
+      {showOtp && (
+        <OtpModal
+          email={userEmail}
+          onClose={() => setShowOtp(false)}
+          onSuccess={() => {
+            setShowOtp(false);
+            setIsLoggedIn(true);
+            navigate(redirectAfterLogin);
+          }}
+        />
+      )}
+
       <Footer />
     </>
   );

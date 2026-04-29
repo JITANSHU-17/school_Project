@@ -38,7 +38,7 @@ export default function Report() {
     Object.keys(form).forEach((key) => data.append(key, form[key]));
 
     try {
-      await axios.post("http://localhost:5000/api/report", data);
+      await axios.post("https://crime-track-backend-5e98.onrender.com/api/report/create", data);
       alert("Report submitted anonymously ✅");
     } catch (err) {
       console.error(err);
