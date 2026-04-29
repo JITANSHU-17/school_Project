@@ -1,33 +1,14 @@
-// import { Link } from "react-router-dom";
-// import crimeImg from "../assets/crime.jpg";
-
-// export default function Hero() {
-//   return (
-//     <div className="relative z-10 flex flex-col items-center justify-center h-[80vh] text-center px-4">
-//       <h1 className="text-4xl md:text-5xl font-bold mb-4">
-//         Anonymous Crime Reporting
-//       </h1>
-//       <p className="text-lg md:text-xl text-gray-300 mb-6">
-//         Report incidents safely and anonymously without fear.
-//       </p>
-//       <Link
-//         to="/report"
-//         className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg text-lg"
-//       >
-//         Report Crime
-//       </Link>
-//     </div>
-//   );
-// }
-
-
-
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export default function Hero() {
+export default function Hero({
+  isLoggedIn,
+  setShowRegister,
+  setRedirectAfterLogin,
+}) {
+  const navigate = useNavigate();
   return (
     <div className="relative h-screen w-full overflow-hidden">
-
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center scale-110"
@@ -45,7 +26,6 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6">
-
         <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
           Anonymous Crime <br /> Reporting
         </h1>
@@ -54,13 +34,19 @@ export default function Hero() {
           Report incidents safely and anonymously without fear.
         </p>
 
-        <Link
-          to="/report"
+        <button
+          onClick={() => {
+            if (!isLoggedIn) {
+              setRedirectAfterLogin("/report"); // after register → go report page
+              setShowRegister(true);
+            } else {
+              navigate("/report");
+            }
+          }}
           className="bg-red-600 hover:bg-red-700 px-8 py-3 rounded-md text-lg font-semibold transition"
         >
           Report Crime
-        </Link>
-
+        </button>
       </div>
     </div>
   );

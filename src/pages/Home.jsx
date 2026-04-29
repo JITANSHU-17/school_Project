@@ -1,23 +1,15 @@
-// import { Link } from 'react-router-dom'
+import Hero from "../components/Hero";
+import Features from "../components/Features";
+import HowItWorks from "../components/HowItWorks";
 
-// export default function Home() {
-//   return (
-//     <div className="container">
-//       <h1>Anonymous Crime Reporting</h1>
-//       <p>Report incidents safely and anonymously.</p>
-//       <Link to="/report" className="btn">Report Crime</Link>
-//     </div>
-//   )
-// }
-
-import Hero from "../components/hero";
-import Features from "../components/features";
-import HowItWorks from "../components/howItWorks";
-
-export default function Home() {
+export default function Home({ isLoggedIn,setShowRegister, setRedirectAfterLogin }) {
   return (
     <>
-      <Hero />
+      <Hero
+      isLoggedIn={isLoggedIn}
+        setShowRegister={setShowRegister}
+        setRedirectAfterLogin={setRedirectAfterLogin}
+      />
       <Features />
       <HowItWorks />
     </>

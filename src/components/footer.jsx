@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 
-function footer() {
+function Footer() {
   return (
     <footer className="bg-[#020617] text-gray-300 py-8 mt-10">
       <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-6">
@@ -44,4 +44,4 @@ function footer() {
   );
 }
 
-export default footer
+export default Footer
